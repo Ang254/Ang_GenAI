@@ -3,14 +3,12 @@
 import random;
 import from byllm.llm { Model }
 
-# Pick the LLM model (Gemini or GPT-4o etc.)
 glob llm = Model(model_name="gemini/gemini-2.0-flash", verbose=False);
 
-"""Provide a fun hint if guess is incorrect"""
 def give_hint(guess: str, correct_capital: str, country: str) -> str by llm();
 
 walker CapitalGame {
-    has guess: str = "";       # ✅ default prevents spawn error
+    has guess: str = "";      
     has attempts: int = 2;
 
     can start with `root entry;
@@ -22,9 +20,8 @@ node turn {
     has capital: str;
 }
 
-# Run when in CLI mode
 with entry:__main__ {
-    root spawn CapitalGame();   # ✅ now works
+    root spawn CapitalGame();  
 }
 
 impl CapitalGame.start {
@@ -41,7 +38,6 @@ impl CapitalGame.start {
         "United States": "Washington"
     };
 
-    # Randomly pick a country-capital pair
     pair = random.choice(list(countries.items()));
     next = root ++> turn(pair[0], pair[1]);
 
@@ -60,7 +56,6 @@ impl CapitalGame.process_guess {
     } else {
         self.attempts -= 1;
 
-        # 🤖 Ask AI for a hint
         hint = give_hint(guess, here.capital, here.country);
         print("Wrong answer. Hint: " + hint);
 
