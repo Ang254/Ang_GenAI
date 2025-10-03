@@ -1,7 +1,6 @@
 """Capital City Guessing Game"""
 import random
 
-# Dictionary of countries and their capitals
 countries = {
     "Kenya": "Nairobi",
     "Uganda": "Kampala",
@@ -15,13 +14,11 @@ countries = {
     "United States": "Washington"
 }
 
-# Randomly select a country
 country, capital = random.choice(list(countries.items()))
 
 print("Welcome to the Capital City Guessing Game!")
 print(f"Guess the capital city of {country}. You have 2 attempts.")
 
-# Allow player 2 attempts
 attempts = 2
 for attempt in range(1, attempts + 1):
     guess = input(f"Attempt {attempt}: ").strip()
